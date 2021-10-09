@@ -1,7 +1,6 @@
 {
   "name": "medicare",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node backend/server",
@@ -13,10 +12,21 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-session": "^1.17.2"
   },
   "devDependencies": {
     "concurrently": "^6.3.0",
     "nodemon": "^2.0.13"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kopaljain03/MediCare.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/kopaljain03/MediCare/issues"
+  },
+  "homepage": "https://github.com/kopaljain03/MediCare#readme",
+  "description": ""
 }
