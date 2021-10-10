@@ -18,7 +18,10 @@ router.post('/register',async (req,res)=>{
         email:req.body.email,
         password:hashpw,
         phone:req.body.phone,
-        address:req.body.address}
+        address:req.body.address,
+        experience:req.body.experience,
+        education:req.body.education,
+        }
     var sql='INSERT INTO doctor_info SET ?'
     db.query(sql,q,(error,result)=>{
         if(error) throw error
@@ -41,12 +44,11 @@ router.post('/login', (req,res)=>{
         //decrypt password and compare
         bc.compare(req.body.password,result[0].password,(er,re)=>{
             if(er) throw er
-            console.log(re);
             if(re){
                 //store values in session
                 req.session.email=req.body.email;
                 req.session.isDoctor=true;
-                res.send( req.session.email + "you have been logged in");
+                res.send( req.session.email + " you have been logged in");
             }
             else{
                 res.send('invalid email or password')

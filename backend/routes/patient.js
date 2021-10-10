@@ -1,8 +1,8 @@
 //importing required dependencies
 const express=require('express')
-const session = require('express-session')
 const bc=require('bcrypt')
 const db = require('../config/database')
+const authPatient= require('../authenticaton/authPatient')
 
 const router=express.Router()
 
@@ -34,7 +34,6 @@ router.post('/login', (req,res)=>{
         //decrypt password and compare
         bc.compare(req.body.password,result[0].password,(er,re)=>{
             if(er) throw er
-            console.log(re);
             if(re){
                 //store values in session
                 req.session.email=req.body.email;
@@ -46,6 +45,15 @@ router.post('/login', (req,res)=>{
             }
             })
         
+    })
+})
+
+//route to find nearby doctors
+router.get('/find',authPatient,(req,res)=>{
+    var sql=`SELECT * FROM doctor_info`
+    db.query(sql,(err,result)=>{
+        if(err) throw err
+        res.send(result);
     })
 })
 
