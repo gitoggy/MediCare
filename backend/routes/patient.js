@@ -16,7 +16,7 @@ router.post('/register',async (req,res)=>{
     var sql='INSERT INTO patient_info SET ?'
     db.query(sql,q,(error,result)=>{
         if(error) throw error
-        res.send('user registered')
+        res.send('user registered , redirect to login page here')
     })
     }
     catch(err){
@@ -38,7 +38,7 @@ router.post('/login', (req,res)=>{
                 //store values in session
                 req.session.email=req.body.email;
                 req.session.isPatient=true;
-                res.send( req.session.email + "you have been logged in");
+                res.send( req.session.email + "you have been logged in redirect to find page here");
             }
             else{
                 res.send('invalid email or password')
@@ -52,6 +52,34 @@ router.post('/login', (req,res)=>{
 router.get('/find',authPatient,(req,res)=>{
     var sql=`SELECT * FROM doctor_info`
     db.query(sql,(err,result)=>{
+        if(err) throw err
+        res.send(result);
+    })
+})
+
+//selecting doctor and adding to session
+router.get('/find/:id',authPatient,(req,res)=>{
+    let doc_id=req.params.id;
+    req.session.app_doctor=doc_id;
+    res.send('redirect to /book');
+})
+
+//route to booking form
+router.get('/book',authPatient,(req,res)=>{
+    if(!req.session.app_doctor) res.send("find doc first")
+    res.send('booking form should be here')
+})
+
+//route to insert booking information to database
+router.post('/book',authPatient,(req,res)=>{
+    if(!req.session.app_doctor) res.send("find doc first")
+    var q={ patient_email:req.session.email,
+            symptom:req.body.symptom,
+            date:req.body.date,
+            time:req.body.time,
+            doctor_id:req.session.app_doctor}
+    var sql='INSERT INTO patient_app SET ?'
+    db.query(sql,q,(err,result)=>{
         if(err) throw err
         res.send(result);
     })
