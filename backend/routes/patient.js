@@ -3,6 +3,8 @@ const express=require('express')
 const bc=require('bcrypt')
 const db = require('../config/database')
 const authPatient= require('../authenticaton/authPatient')
+const path=require('path')
+
 
 const router=express.Router()
 
@@ -73,11 +75,23 @@ router.get('/book',authPatient,(req,res)=>{
 //route to insert booking information to database
 router.post('/book',authPatient,(req,res)=>{
     if(!req.session.app_doctor) res.send("find doc first")
+
+    //inserting uploaded files
+    if(req.files){
+        var file=req.files.filename,
+        filename=file.name;
+        file.mv('../upload/'+filename,function(err){
+            if(err) res.send('an error occured')
+        })
+    }
+
     var q={ patient_email:req.session.email,
             symptom:req.body.symptom,
             date:req.body.date,
             time:req.body.time,
-            doctor_id:req.session.app_doctor}
+            doctor_id:req.session.app_doctor,
+            upload:`/backend/upload/${filename}`
+            }
     var sql='INSERT INTO patient_app SET ?'
     db.query(sql,q,(err,result)=>{
         if(err) throw err
