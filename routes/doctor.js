@@ -6,6 +6,16 @@ const db = require('../config/database')
 
 const router=express.Router()
 
+
+//get routes for register and login
+router.get('/register',async (req,res)=>{
+    res.render('registrationDoctor')
+})
+
+router.get('/login',async (req,res)=>{
+    res.render('logindoctor')
+})
+
 //registering doctor
 router.post('/register',async (req,res)=>{
     try{
@@ -25,7 +35,7 @@ router.post('/register',async (req,res)=>{
     var sql='INSERT INTO doctor_info SET ?'
     db.query(sql,q,(error,result)=>{
         if(error) throw error
-        res.send('user registered')
+        res.redirect('/doctor/login')
     })
     }
     catch(err){

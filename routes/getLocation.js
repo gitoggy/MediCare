@@ -1,4 +1,7 @@
 const express=require('express')
+const db = require('../config/database')
+
+const router=express.Router()
 
 
 //this fuction was taken from the internet
@@ -32,9 +35,13 @@ return(c * r);
 }
 
 
-// app.post('/', (req, res) => {
-//     console.log(req.body)
-// })
+router.post('/patient', (req, res) => {
+    console.log(req.body)
+})
+
+router.post('/doctor', (req, res) => {
+    console.log(req.body)
+})
 
 
 // {/* <script>
@@ -56,3 +63,6 @@ return(c * r);
 //     })
     
 //     </script> */}
+
+
+module.exports=router;

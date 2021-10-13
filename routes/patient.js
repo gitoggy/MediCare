@@ -8,12 +8,14 @@ const path=require('path')
 
 const router=express.Router()
 
+
+//get routes for register and login
 router.get('/register',async (req,res)=>{
     res.render('registrationPatient')
 })
 
 router.get('/login',async (req,res)=>{
-    res.send('in login')
+    res.render('loginpatient')
 })
 
 //registering patient
