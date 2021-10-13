@@ -2,6 +2,8 @@
 const express = require("express");
 const session = require('express-session')
 const dotenv = require("dotenv");
+const upload=require('express-fileupload')
+const path=require('path')
 
 dotenv.config();
 
@@ -14,6 +16,7 @@ const app = express();
 //declaring middleware usage
 app.use(express.urlencoded())
 app.use(express.json())
+app.use(upload())
 app.use(session({
     secret: 'blackcatnero',
     resave: false,
