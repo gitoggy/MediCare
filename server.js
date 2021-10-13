@@ -10,9 +10,12 @@ dotenv.config();
 //importing other dependencies
 const doctorRoute=require('./routes/doctor')
 const patientRoute=require('./routes/patient')
-const locRoute=require('./routes/getLocation')
+// const locRoute=require('./routes/getLocation')
 
 const app = express();
+
+//setting ejs as view engine for frontend
+app.set('view engine','ejs');
 
 //declaring middleware usage
 app.use(express.urlencoded())
@@ -26,7 +29,7 @@ app.use(session({
  
 app.use('/doctor',doctorRoute)
 app.use('/patient',patientRoute)
-app.use('/getLocation',locRoute)
+// app.use('/getLocation',locRoute)
 
 
 //starting app on port

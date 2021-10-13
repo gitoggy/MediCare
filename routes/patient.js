@@ -8,6 +8,14 @@ const path=require('path')
 
 const router=express.Router()
 
+router.get('/register',async (req,res)=>{
+    res.render('registrationPatient')
+})
+
+router.get('/login',async (req,res)=>{
+    res.send('in login')
+})
+
 //registering patient
 router.post('/register',async (req,res)=>{
     try{
@@ -18,11 +26,11 @@ router.post('/register',async (req,res)=>{
     var sql='INSERT INTO patient_info SET ?'
     db.query(sql,q,(error,result)=>{
         if(error) throw error
-        res.send('user registered , redirect to login page here')
+        res.redirect('/patient/login')
     })
     }
     catch(err){
-        res.send(err)
+        throw err;
     }
 })
 

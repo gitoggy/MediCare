@@ -1,3 +1,6 @@
+const express=require('express')
+
+
 //this fuction was taken from the internet
 
 function distance(lat1,lon1,lat2, lon2)
@@ -29,9 +32,9 @@ return(c * r);
 }
 
 
-app.post('/', (req, res) => {
-    console.log(req.body)
-})
+// app.post('/', (req, res) => {
+//     console.log(req.body)
+// })
 
 
 // {/* <script>
