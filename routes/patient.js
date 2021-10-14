@@ -61,16 +61,16 @@ router.post('/login', (req,res)=>{
 })
 
 //route to find nearby doctors
-router.get('/find',authPatient,(req,res)=>{
+router.get('/find',(req,res)=>{
     var sql=`SELECT * FROM doctor_info`
     db.query(sql,(err,result)=>{
         if(err) throw err
-        res.send(result);
+        res.render('doctorCard',{doctor:result});
     })
 })
 
 //selecting doctor and adding to session
-router.get('/find/:id',authPatient,(req,res)=>{
+router.get('/find/:id',authPatient,(req,res)=>{ 
     let doc_id=req.params.id;
     req.session.app_doctor=doc_id;
     res.send('redirect to /book');
