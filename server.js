@@ -26,6 +26,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
   }))
+app.use(express.static(__dirname+'/static'))
  
 app.use('/doctor',doctorRoute)
 app.use('/patient',patientRoute)
