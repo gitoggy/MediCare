@@ -35,6 +35,7 @@ router.post('/register',async (req,res)=>{
     var sql='INSERT INTO doctor_info SET ?'
     db.query(sql,q,(error,result)=>{
         if(error) throw error
+        req.session.mail=req.body.email
         res.redirect('/doctor/login')
     })
     }

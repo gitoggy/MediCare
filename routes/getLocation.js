@@ -40,7 +40,15 @@ router.post('/patient', (req, res) => {
 })
 
 router.post('/doctor', (req, res) => {
-    console.log(req.body)
+    var q={ lat:req.body.lat,
+            lon:req.body.lon,
+            doctor_email:req.session.mail
+            }
+    var sql='INSERT INTO doctor_loc SET ?'
+    db.query(sql,q,(err,result)=>{
+        if(err) throw err
+        res.render('loginDoctor');
+    })
 })
 
 
