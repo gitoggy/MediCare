@@ -33,6 +33,11 @@ app.use('/patient',patientRoute)
 app.use('/getLocation',locRoute)
 
 
+app.get('/home', (req,res)=>{
+  res.render('index')
+})
+
+
 //starting app on port
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

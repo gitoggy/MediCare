@@ -31,23 +31,23 @@
     </style>
 </head>
 <body>
+  <%- include('navbarAfterLogin.ejs') %> 
     <div class="form3">
 
-    <form>
+    <form action="/patient/book" method="post">
         <div class="col-sm-7">
-          <label for="exampleInputEmail1" class="form-label">Name</label>
-          <input type="name" class="form-control" id="exampleInputname1" aria-describedby="emailHelp">
-          <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
-        </div>
         <div class="col-sm-7">
           <label for="exampleInputEmail1" class="form-label">Age</label>
           <input type="Age" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
           <!-- <div id="Age" class="form-text">We'll never share your email with anyone else.</div> -->
         </div>
         <div class="col-sm-7">
-          <label for="exampleInputEmail1" class="form-label">Mobile Number</label>
-          <input type="mobile" class="form-control" id="exampleInputmobile1" aria-describedby="emailHelp">
-          <div id="mobileHelp" class="form-text">We'll never share your Mobile Number with anyone else.</div>
+          <label for="exampleInputEmail1" class="form-label">Date of the Appointment</label>
+          <input type="date" class="form-control" id="exampleInputmobile1" aria-describedby="emailHelp">
+        </div>
+        <div class="col-sm-7">
+          <label for="exampleInputEmail1" class="form-label">Time of the Appointment</label>
+          <input type="time" class="form-control" id="exampleInputmobile1" aria-describedby="emailHelp">
         </div>
         <div class="col-sm-7">
           <label for="exampleInputEmail1" class="form-label">Gender</label>
@@ -65,7 +65,7 @@
         </div>
         <div class="input-group mb-3 col-sm-4">
             <input type="file" class="form-control" id="inputGroupFile02">
-            <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            <label class="input-group-text" for="inputGroupFile02">Upload any previous prescriptions or reports</label>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
           

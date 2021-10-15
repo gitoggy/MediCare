@@ -51,7 +51,7 @@ router.post('/login', (req,res)=>{
                 //store values in session
                 req.session.email=req.body.email;
                 req.session.isPatient=true;
-                res.send( req.session.email + "you have been logged in redirect to find page here");
+                res.redirect('/patient/find');
             }
             else{
                 res.send('invalid email or password')
@@ -80,7 +80,7 @@ router.get('/find/:id',authPatient,(req,res)=>{
 //route to booking form
 router.get('/book',authPatient,(req,res)=>{
     if(!req.session.app_doctor) res.send("find doc first")
-    res.send('booking form should be here')
+    res.render('offlineBookingForm')
 })
 
 //route to insert booking information to database
