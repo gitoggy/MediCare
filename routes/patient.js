@@ -4,7 +4,7 @@ const bc=require('bcrypt')
 const db = require('../config/database')
 const authPatient= require('../authenticaton/authPatient')
 const path=require('path')
-
+const location=require('./locationFunction')
 
 const router=express.Router()
 
@@ -66,7 +66,20 @@ router.get('/find',authPatient,(req,res)=>{
     var sql=`SELECT * FROM doctor_info`
     db.query(sql,(err,result)=>{
         if(err) throw err
-        res.render('doctorCard',{doctor:result});
+        var q=`SELECT * FROM doctor_loc`
+        db.query(q,(er,re)=>{
+            if(er) throw er
+            var sq=`SELECT * FROM patient_info WHERE email='${req.session.mail}'`
+            db.query(sq,(erro,resu)=>{
+                if(erro) throw erro
+                var loc=[]
+                for(var i=0 ; i<re.length; i++){
+                    loc.push(location(resu[0].lat,resu[0].lon,re[i].lat,re[i].lon));
+                }
+                // console.log(loc)
+                res.render('doctorCard',{doctor:result,location:loc});
+            })
+        })
     })
 })
 
