@@ -20,7 +20,7 @@
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="sidebar-brand">
-          <a href="#">pro sidebar</a>
+          <a href="#">sidebar</a>
           <div id="close-sidebar">
             <i class="fas fa-times"></i>
           </div>
@@ -30,10 +30,9 @@
             <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
           </div>
           <div class="user-info">
-            <span class="user-name">Jhon
-              <strong>Smith</strong>
+            <span class="user-name"><%= patient_name%> 
             </span>
-            <span class="user-role">Email</span>
+            <span class="user-role"><%= patient.patient_email %> </span>
             <span class="user-status">
               <i class="fa fa-circle"></i>
               <span>Online</span>
@@ -41,19 +40,6 @@
           </div>
         </div>
         <!-- sidebar-header  -->
-        <div class="sidebar-search">
-          <div>
-            <div class="input-group">
-              <input type="text" class="form-control search-menu" placeholder="Search...">
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- sidebar-search  -->
         <div class="sidebar-menu">
           <ul>
             <li class="header-menu">
@@ -68,9 +54,7 @@
               <div class="sidebar-submenu">
                 <ul>
                   <li>
-                    <a href="#">Dashboard 1
-                      <span class="badge badge-pill badge-success">Pro</span>
-                    </a>
+                   
                   </li>
                   <li>
                     <a href="#">Dashboard 2</a>
@@ -108,63 +92,21 @@
                 <i class="far fa-gem"></i>
                 <span>Chats</span>
               </a>
-              <div class="sidebar-submenu">
-                <ul>
-                  <li>
-                    <a href="#">General</a>
-                  </li>
-                  <li>
-                    <a href="#">Panels</a>
-                  </li>
-                  <li>
-                    <a href="#">Tables</a>
-                  </li>
-                  <li>
-                    <a href="#">Icons</a>
-                  </li>
-                  <li>
-                    <a href="#">Forms</a>
-                  </li>
-                </ul>
-              </div>
+              
             </li>
             <li class="sidebar-dropdown">
               <a href="#">
                 <i class="fa fa-chart-line"></i>
                 <span>Medical History</span>
               </a>
-              <div class="sidebar-submenu">
-                <ul>
-                  <li>
-                    <a href="#">Pie chart</a>
-                  </li>
-                  <li>
-                    <a href="#">Line chart</a>
-                  </li>
-                  <li>
-                    <a href="#">Bar chart</a>
-                  </li>
-                  <li>
-                    <a href="#">Histogram</a>
-                  </li>
-                </ul>
-              </div>
+            
             </li>
             <li class="sidebar-dropdown">
               <a href="#">
                 <i class="fa fa-globe"></i>
                 <span>My Profile</span>
               </a>
-              <div class="sidebar-submenu">
-                <ul>
-                  <li>
-                    <a href="#">Google maps</a>
-                  </li>
-                  <li>
-                    <a href="#">Open street map</a>
-                  </li>
-                </ul>
-              </div>
+              
             </li>
             <li class="header-menu">
               <span>Extra</span>
@@ -214,7 +156,7 @@
     <!-- sidebar-wrapper  -->
     <main class="page-content">
       <div class="container">
-        <h1>Hello, Jhon!</h1>
+        <h1>Hello, <%= patient_name %> !</h1>
         <hr>
         <div class="row">
           <div class="form-group col-md-12">
@@ -304,15 +246,15 @@
         <div class="data">
         <div class="card1" style="width: 22rem;">
             <div class="card-body">
-              <h5 class="card-title">Your Doctor</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Change</a>
+              <h5 class="card-title">Your Doctor: <%= doctor.name %> </h5>
+              <p class="card-text"><%= doctor.specialization %> <br><%= doctor.email %>  </p>
+              <a href="#" class="btn btn-primary">Appointment in detail</a>
             </div>
           </div>
         <div class="card2" style="width: 22rem;">
             <div class="card-body">
               <h5 class="card-title">Your data</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">your age:<%= patient.age %> <br> your gender:<%= patient.gender %> </p>
               <a href="#" class="btn btn-primary">Change</a>
             </div>
           </div>
@@ -321,7 +263,7 @@
           <div class="card mb-3" style="width: 900px;">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="istockphoto-1307543618-170667a.jpg" class="img-fluid rounded-start" alt="...">
+                <img src="/istockphoto-1307543618-170667a.jpg" class="img-fluid rounded-start" alt="...">
               </div>
               
               <div class="col-md-8">
@@ -335,8 +277,7 @@
                           <h5 class="card-title">Prescriptions</h5>
                           <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="card-link">Card link</a>
-                          <a href="#" class="card-link">Another link</a>
+                          <a href="#" class="card-link">View prescriptions</a>
                         </div>
                       </div>
                       
@@ -346,8 +287,7 @@
                           <h5 class="card-title">Pathology Test</h5>
                           <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="card-link">Card link</a>
-                          <a href="#" class="card-link">Another link</a>
+                          <a href="#" class="card-link">Book your test now!</a>
                         </div>
                       </div>
                       </div>
