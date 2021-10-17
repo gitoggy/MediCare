@@ -29,6 +29,7 @@ router.post('/register',async (req,res)=>{
     db.query(sql,q,(error,result)=>{
         if(error) throw error
         req.session.mail=req.body.email
+        req.session.name=req.body.name;
         res.redirect('/patient/login')
     })
     }
@@ -69,7 +70,7 @@ router.get('/find',authPatient,(req,res)=>{
         var q=`SELECT * FROM doctor_loc`
         db.query(q,(er,re)=>{
             if(er) throw er
-            var sq=`SELECT * FROM patient_info WHERE email='${req.session.mail}'`
+            var sq=`SELECT * FROM patient_info WHERE email='${req.session.email}'`
             db.query(sq,(erro,resu)=>{
                 if(erro) throw erro
                 var loc=[]
@@ -113,13 +114,27 @@ router.post('/book',authPatient,(req,res)=>{
             symptom:req.body.symptom,
             date:req.body.date,
             time:req.body.time,
+            age:req.body.age,
+            gender:req.body.gender,
             doctor_id:req.session.app_doctor,
             upload:`/backend/upload/${filename}`
             }
     var sql='INSERT INTO patient_app SET ?'
     db.query(sql,q,(err,result)=>{
         if(err) throw err
-        res.send(result);
+        res.redirect('/patient/dashboard');
+    })
+})
+
+router.get('/dashboard',authPatient,(req,res)=>{
+    var sql=`SELECT * FROM doctor_info where id='${req.session.app_doctor}'`
+    db.query(sql,(err,result)=>{
+        if(err) throw err
+        var q=`SELECT * FROM patient_app where patient_email='${req.session.email}'`
+        db.query(q,(er,re)=>{
+            if(er) throw er
+            res.render('dashboard',{doctor:result[0],patient:re[0],patient_name:req.session.name});
+        })
     })
 })
 
