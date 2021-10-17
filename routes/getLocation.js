@@ -22,7 +22,6 @@ router.post('/doctor', (req, res) => {
     var sql='INSERT INTO doctor_loc SET ?'
     db.query(sql,q,(err,result)=>{
         if(err) throw err
-        res.render('loginDoctor');
     })
 })
 
