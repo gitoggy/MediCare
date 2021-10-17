@@ -1,6 +1,6 @@
 //importing required dependencies
 const express=require('express')
-const session = require('express-session')
+const authDoctor = require('../authenticaton/authDoctor')
 const bc=require('bcrypt')
 const db = require('../config/database')
 
@@ -57,9 +57,10 @@ router.post('/login', (req,res)=>{
             if(er) throw er
             if(re){
                 //store values in session
+                req.session.docid=req.body.id;
                 req.session.email=req.body.email;
                 req.session.isDoctor=true;
-                res.send( req.session.email + " you have been logged in");
+                res.redirect('/dashboard');
             }
             else{
                 res.send('invalid email or password')
@@ -68,6 +69,17 @@ router.post('/login', (req,res)=>{
         
     })
 })
+
+
+//dashboard route
+router.get('/dashboard',authDoctor, (req,res)=>{
+    var sql=`SELECT * FROM patient_doctor WHERE doctor_id='${req.session.docid}'`
+    db.query(sql, (err,result)=>{
+        if(err) throw err
+        res.send(result)
+    })
+})
+
 
 
 //exporting router
