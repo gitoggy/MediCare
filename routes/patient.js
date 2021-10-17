@@ -69,7 +69,7 @@ router.get('/find',authPatient,(req,res)=>{
         var q=`SELECT * FROM doctor_loc`
         db.query(q,(er,re)=>{
             if(er) throw er
-            var sq=`SELECT * FROM patient_info WHERE email='${req.session.mail}'`
+            var sq=`SELECT * FROM patient_info WHERE email='${req.session.email}'`
             db.query(sq,(erro,resu)=>{
                 if(erro) throw erro
                 var loc=[]
