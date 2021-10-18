@@ -17,7 +17,7 @@ db.query(sql,(err,result)=>{
 router.post('/doctor', (req, res) => {
     var q={ lat:req.body.lat,
             lon:req.body.lon,
-            doctor_email:req.session.mail
+            doctor_email:req.session.email
             }
     var sql='INSERT INTO doctor_loc SET ?'
     db.query(sql,q,(err,result)=>{

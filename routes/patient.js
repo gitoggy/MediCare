@@ -111,6 +111,7 @@ router.post('/book',authPatient,(req,res)=>{
     }
 
     var q={ patient_email:req.session.email,
+            patient_name:req.session.name,
             symptom:req.body.symptom,
             date:req.body.date,
             time:req.body.time,
