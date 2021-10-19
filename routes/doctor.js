@@ -57,10 +57,10 @@ router.post('/login', (req,res)=>{
             if(er) throw er
             if(re){
                 //store values in session
-                req.session.docid=req.body.id;
+                req.session.docid=result[0].id;
                 req.session.email=req.body.email;
                 req.session.isDoctor=true;
-                res.redirect('/dashboard');
+                res.redirect('/doctor/dashboard');
             }
             else{
                 res.send('invalid email or password')
@@ -73,10 +73,15 @@ router.post('/login', (req,res)=>{
 
 //dashboard route
 router.get('/dashboard',authDoctor, (req,res)=>{
-    var sql=`SELECT * FROM patient_doctor WHERE doctor_id='${req.session.docid}'`
+    var sql=`SELECT * FROM patient_app WHERE doctor_id='${req.session.docid}'`
     db.query(sql, (err,result)=>{
         if(err) throw err
-        res.send(result)
+        var q=`SELECT * FROM doctor_info WHERE id='${req.session.docid}'`
+        db.query(q, (er,re)=>{
+        if(er) throw er
+        console.log(req.session.docid);
+        res.render('doctorDashboard',{patient:result,doctor:re[0]})
+    })
     })
 })
 
