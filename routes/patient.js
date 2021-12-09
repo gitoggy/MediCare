@@ -51,8 +51,9 @@ router.post('/login', (req,res)=>{
             if(re){
                 //store values in session
                 req.session.email=req.body.email;
+                req.session.name=result[0].name;
                 req.session.isPatient=true;
-                res.redirect('/patient/find');
+                res.redirect('/patient/dashboard');
             }
             else{
                 res.send('invalid email or password')
@@ -88,7 +89,13 @@ router.get('/find',authPatient,(req,res)=>{
 router.get('/find/:id',authPatient,(req,res)=>{ 
     let doc_id=req.params.id;
     req.session.app_doctor=doc_id;
-    res.redirect('/patient/book');
+    var sql=`SELECT * FROM doctor_info where id='${req.session.app_doctor}'`
+            db.query(sql,(err,result)=>{
+                if(err) throw err
+                req.session.doc_name=result[0].name;
+                console.log(req.session.doc_name)
+                res.redirect('/patient/book');
+            })
 })
 
 //route to booking form
@@ -118,6 +125,7 @@ router.post('/book',authPatient,(req,res)=>{
             age:req.body.age,
             gender:req.body.gender,
             doctor_id:req.session.app_doctor,
+            doctor_name:req.session.doc_name,
             upload:`/backend/upload/${filename}`
             }
     var sql='INSERT INTO patient_app SET ?'
@@ -128,16 +136,31 @@ router.post('/book',authPatient,(req,res)=>{
 })
 
 router.get('/dashboard',authPatient,(req,res)=>{
-    var sql=`SELECT * FROM doctor_info where id='${req.session.app_doctor}'`
-    db.query(sql,(err,result)=>{
-        if(err) throw err
-        var q=`SELECT * FROM patient_app where patient_email='${req.session.email}'`
+    
+        var q=`SELECT * FROM patient_app where patient_email='${req.session.email}' AND flag='pending'`
         db.query(q,(er,re)=>{
             if(er) throw er
-            res.render('dashboard',{doctor:result[0],patient:re[0],patient_name:req.session.name});
+            var sql=`SELECT * FROM doctor_info where id='${re[0].doctor_id}'`
+            db.query(sql,(err,resu)=>{
+                if(err) throw err
+                    res.render('dashboard',{doctor:resu[0],patient:re[0],patient_name:req.session.name});
+            })
+        })
+})
+
+router.get('/app/:id',authPatient,(req,res)=>{
+    
+    var q=`SELECT * FROM patient_app where patient_email='${req.session.email}'`
+    db.query(q,(er,re)=>{
+        if(er) throw er
+        var sql=`SELECT * FROM doctor_info where id='${req.params.id}'`
+        db.query(sql,(err,resu)=>{
+            if(err) throw err
+                res.render('dashboard',{doctor:resu[0],patient:re[0],patient_name:req.session.name});
         })
     })
 })
+
 
 //exporting router
 module.exports = router;

@@ -246,9 +246,9 @@
         <div class="data">
         <div class="card1" style="width: 22rem;">
             <div class="card-body">
-              <h5 class="card-title">Your Doctor: <%= doctor.name %> </h5>
+              <h5 class="card-title">Next Appointment: <%= doctor.name %> </h5>
               <p class="card-text"><%= doctor.specialization %> <br><%= doctor.email %>  </p>
-              <a href="#" class="btn btn-primary">Appointment in detail</a>
+              <a href="/patient/app/<%= doctor.id %>" class="btn btn-primary">Appointment in detail</a>
             </div>
           </div>
         <div class="card2" style="width: 22rem;">
