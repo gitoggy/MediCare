@@ -85,7 +85,13 @@ router.get('/dashboard',authDoctor, (req,res)=>{
     })
 })
 
-
+router.get('/app/:id',authDoctor, (req,res)=>{
+    var sql=`SELECT * FROM patient_app WHERE id='${req.params.id}'`
+    db.query(sql, (err,result)=>{
+        if(err) throw err
+        res.render('doctorDashboard',{patient:result})
+    })
+})
 
 //exporting router
 module.exports = router;

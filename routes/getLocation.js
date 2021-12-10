@@ -15,14 +15,28 @@ db.query(sql,(err,result)=>{
 })
 
 router.post('/doctor', (req, res) => {
-    var q={ lat:req.body.lat,
-            lon:req.body.lon,
-            doctor_email:req.session.email
-            }
-    var sql='INSERT INTO doctor_loc SET ?'
-    db.query(sql,q,(err,result)=>{
-        if(err) throw err
-    })
+  
+        var sql=`SELECT * FROM doctor_loc where doctor_email='${req.session.email}'`
+        db.query(sql,(err,resu)=>{
+            if(err) throw err
+               if(resu){
+                var q={ lat:req.body.lat,
+                    lon:req.body.lon,
+                    doctor_email:req.session.email
+                    }
+            var sql='INSERT INTO doctor_loc SET ?'
+            db.query(sql,q,(err,result)=>{
+                if(err) throw err
+            })
+               }
+               else{
+                let sql = `UPDATE doctor_loc SET lat='${req.body.lat}' , lon='${req.body.lon}' WHERE doctor_email='${req.session.email}'`
+                db.query(sql,(err,result)=>{
+                if(err) throw err
+                })
+               }
+        })
+    
 })
 
 

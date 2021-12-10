@@ -161,6 +161,19 @@ router.get('/app/:id',authPatient,(req,res)=>{
     })
 })
 
+router.get('/appointments',authPatient,(req,res)=>{
+    
+    var q=`SELECT * FROM patient_app where patient_email='${req.session.email}'`
+    db.query(q,(er,re)=>{
+        if(er) throw er
+        var sql=`SELECT * FROM doctor_info where id='${req.params.id}'`
+        db.query(sql,(err,resu)=>{
+            if(err) throw err
+                res.render('dashboard',{doctor:resu,patient:re,patient_name:req.session.name});
+        })
+    })
+})
+
 
 //exporting router
 module.exports = router;
