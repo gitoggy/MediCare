@@ -103,8 +103,9 @@
               Time: <%= patient[i].time %> <br />
               Mode Of Appointment: Online/Offline <br />
             </p>
-            <a href="#" class="btn btn-primary">Go to Appointment</a>
-            <a href="#" class="btn btn-primary">Mark As Done</a>
+            <a href="/doctor/app/<%= patient[i].id %>" class="btn btn-primary">Go to Appointment</a>
+            <a href="/doctor/done/<%= patient[i].id %>" class="btn btn-primary">Mark As Done</a>
+            <a href="/doctor/notes/<%= patient[i].id %>" class="btn btn-primary">View Note</a>
           </div>
         </div>
         <% } %>

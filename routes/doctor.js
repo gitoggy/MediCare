@@ -73,7 +73,7 @@ router.post('/login', (req,res)=>{
 
 //dashboard route
 router.get('/dashboard',authDoctor, (req,res)=>{
-    var sql=`SELECT * FROM patient_app WHERE doctor_id='${req.session.docid}'`
+    var sql=`SELECT * FROM patient_app WHERE doctor_id='${req.session.docid}' AND flag='pending'`
     db.query(sql, (err,result)=>{
         if(err) throw err
         var q=`SELECT * FROM doctor_info WHERE id='${req.session.docid}'`
@@ -89,7 +89,38 @@ router.get('/app/:id',authDoctor, (req,res)=>{
     var sql=`SELECT * FROM patient_app WHERE id='${req.params.id}'`
     db.query(sql, (err,result)=>{
         if(err) throw err
-        res.render('doctorDashboard',{patient:result})
+        var q=`SELECT * FROM doctor_info WHERE id='${req.session.docid}'`
+        db.query(q, (er,re)=>{
+        if(er) throw er
+        // console.log(req.session.docid);
+        res.render('doctorDashboard',{patient:result,doctor:re[0]})
+    })
+    })
+})
+
+router.get('/done/:id',authDoctor, (req,res)=>{
+    var sql=`UPDATE patient_app SET flag='done' WHERE id='${req.params.id}'`
+    db.query(sql, (err,result)=>{
+        if(err) throw err
+        var q=`SELECT * FROM doctor_info WHERE id='${req.session.docid}'`
+        db.query(q, (er,re)=>{
+        if(er) throw er
+        // console.log(re[0]);
+        res.redirect('/doctor/dashboard')
+    })
+    })
+})
+
+router.get('/notes/:id',authDoctor, (req,res)=>{
+    var sql=`UPDATE patient_app SET flag='done' WHERE id='${req.params.id}'`
+    db.query(sql, (err,result)=>{
+        if(err) throw err
+        var q=`SELECT * FROM doctor_info WHERE id='${req.session.docid}'`
+        db.query(q, (er,re)=>{
+        if(er) throw er
+        // console.log(re[0]);
+        res.render('doctorDashboard',{patient:result,doctor:re[0]})
+    })
     })
 })
 
