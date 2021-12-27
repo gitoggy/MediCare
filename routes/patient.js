@@ -53,7 +53,7 @@ router.post('/login', (req,res)=>{
                 req.session.email=req.body.email;
                 req.session.name=result[0].name;
                 req.session.isPatient=true;
-                res.redirect('/patient/dashboard');
+                res.redirect('/patient/find');
             }
             else{
                 res.send('invalid email or password')
